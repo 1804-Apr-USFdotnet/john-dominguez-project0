@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FB8DCDA5-9B0E-4029-BE84-8C21861B6431}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Palindrome</RootNamespace>
-    <AssemblyName>Palindrome</AssemblyName>
+    <ProjectGuid>{F58AD6DB-249A-4843-8FD6-C4CECD3C1F3C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>library</RootNamespace>
+    <AssemblyName>library</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,21 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Palindrome.cs" />
+    <Compile Include="CodeChallenge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\library\Library.csproj">
-      <Project>{f58ad6db-249a-4843-8fd6-c4cecd3c1f3c}</Project>
-      <Name>Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UnitTestProject0\UnitTestProject0.csproj">
-      <Project>{f56e8d2e-4d2d-4f76-8168-ac439d01a8af}</Project>
-      <Name>UnitTestProject0</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
