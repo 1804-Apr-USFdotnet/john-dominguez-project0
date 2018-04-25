@@ -3,15 +3,14 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 
-namespace library
+namespace Library
 {
-    public class SerializeMe
+    public class Serializer
     {
-        public static void SerializeMeNow<T>(T type, string filename)
+        public static void Serialize(Object type, string filename="data.txt")
         {
-            Console.WriteLine(JsonConvert.SerializeObject(type));
             JsonSerializer serializer = new JsonSerializer {NullValueHandling = NullValueHandling.Ignore};
-        
+
             using (StreamWriter streamWriter = new StreamWriter(filename))
             using (JsonWriter writer = new JsonTextWriter(streamWriter))
             {
@@ -19,7 +18,12 @@ namespace library
             }
         }
 
-        public static List<T> DeserializeMeNow<T>(string filename)
+        public static string Serialize<T>(T type)
+        {
+            return JsonConvert.SerializeObject(type);
+        }
+
+        public static List<T> Deserialize<T>(string filename)
         {
             var jsonFile = File.ReadAllText(filename);
             return JsonConvert.DeserializeObject<List<T>>(jsonFile);

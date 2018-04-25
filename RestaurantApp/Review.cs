@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantApp
 {
-    class Review
+    public class Review
     {
         public static int TotalReviews = 0;
         public int Id { get; set; }
@@ -21,6 +21,33 @@ namespace RestaurantApp
             DateTime = DateTime.Now;
             TotalReviews++;
             Id = TotalReviews;
+        }
+
+        public string ToString()
+        {
+            return $"";
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null || GetType() != obj.GetType()) return false;
+            Review otherReview = obj as Review;
+
+            return this.Rating.Equals(otherReview.Rating)
+                   & this.Author.Equals(otherReview.Author)
+                   & this.DateTime.Equals(otherReview.DateTime);
+        }
+
+        // Factory Methods
+        public static List<Review> MakeReviews()
+        {
+            return new List<Review>()
+            {
+                new Review(3, "John"),
+                new Review(7, "Manjot"),
+                new Review(7, "Jake"),
+                new Review(7, "Mit")
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using library;
+using Library;
 
 namespace RestaurantApp
 {
@@ -8,14 +8,13 @@ namespace RestaurantApp
     {
         static void Main(string[] args)
         {
-            List<Restaurant> list = new List<Restaurant>()
+            Serializer.Serialize(Restaurant.MakeRestaurants(), "test.txt");
+            var restaurants = Serializer.Deserialize<Restaurant>("test.txt");
+            foreach (var r in restaurants)
             {
-                new Restaurant("johns", "asdf")
-            };
-
-            SerializeMe.SerializeMeNow(list, "test.txt");
+                Console.WriteLine(r.ToString());
+            }
             Console.Read();
-
         }
     }
 }
