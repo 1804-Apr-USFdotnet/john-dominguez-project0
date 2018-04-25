@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using library;
+using Library;
 
 namespace RestaurantApp
 {
@@ -23,9 +22,9 @@ namespace RestaurantApp
             Id = TotalReviews;
         }
 
-        public string ToString()
+        public override string ToString()
         {
-            return $"";
+            return $"{Rating}:{Author}";
         }
 
         public override bool Equals(Object obj)
@@ -41,12 +40,13 @@ namespace RestaurantApp
         // Factory Methods
         public static List<Review> MakeReviews()
         {
+            var rand = new Random();
             return new List<Review>()
             {
-                new Review(3, "John"),
-                new Review(7, "Manjot"),
-                new Review(7, "Jake"),
-                new Review(7, "Mit")
+                new Review(CollectionLib.RandomRating(10), "John"),
+                new Review(CollectionLib.RandomRating(10), "Manjot"),
+                new Review(CollectionLib.RandomRating(10), "Jake"),
+                new Review(CollectionLib.RandomRating(10), "Mit")
             };
         }
     }
