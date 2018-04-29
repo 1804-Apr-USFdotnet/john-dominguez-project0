@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="RestaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RestaurantDB.Restaurant.RestaurantReviews' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="RestaurantReviews">
-          <Key>
-            <PropertyRef Name="restaurant_id" />
-            <PropertyRef Name="review_id" />
-          </Key>
-          <Property Name="restaurant_id" Type="int" Nullable="false" />
-          <Property Name="review_id" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Restaurants">
           <Key>
             <PropertyRef Name="id" />
@@ -33,47 +23,28 @@ warning 6002: The table/view 'RestaurantDB.Restaurant.RestaurantReviews' does no
           <Property Name="rating" Type="int" Nullable="false" />
           <Property Name="body" Type="varchar" MaxLength="50" />
           <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="restaurant_id" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Restauran__resta__5629CD9C">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
-          <End Role="RestaurantReviews" Type="Self.RestaurantReviews" Multiplicity="*" />
+        <Association Name="FK_Restaurant_Cascade">
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="RestaurantReviews">
+            <Dependent Role="Reviews">
               <PropertyRef Name="restaurant_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Restauran__revie__571DF1D5">
-          <End Role="Reviews" Type="Self.Reviews" Multiplicity="1" />
-          <End Role="RestaurantReviews" Type="Self.RestaurantReviews" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reviews">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="RestaurantReviews">
-              <PropertyRef Name="review_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RestaurantModelStoreContainer">
           <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="Restaurant" store:Type="Tables" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="Restaurant" store:Type="Tables" />
-          <EntitySet Name="RestaurantReviews" EntityType="Self.RestaurantReviews" store:Type="Tables" store:Schema="Restaurant">
-            <DefiningQuery>SELECT 
-    [RestaurantReviews].[restaurant_id] AS [restaurant_id], 
-    [RestaurantReviews].[review_id] AS [review_id]
-    FROM [Restaurant].[RestaurantReviews] AS [RestaurantReviews]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__Restauran__resta__5629CD9C" Association="Self.FK__Restauran__resta__5629CD9C">
+          <AssociationSet Name="FK_Restaurant_Cascade" Association="Self.FK_Restaurant_Cascade">
             <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="RestaurantReviews" EntitySet="RestaurantReviews" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Restauran__revie__571DF1D5" Association="Self.FK__Restauran__revie__571DF1D5">
             <End Role="Reviews" EntitySet="Reviews" />
-            <End Role="RestaurantReviews" EntitySet="RestaurantReviews" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -90,7 +61,7 @@ warning 6002: The table/view 'RestaurantDB.Restaurant.RestaurantReviews' does no
           <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Reviews" Relationship="Self.RestaurantReviews" FromRole="Restaurants" ToRole="Reviews" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_Restaurant_Cascade" FromRole="Restaurants" ToRole="Reviews" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -100,16 +71,27 @@ warning 6002: The table/view 'RestaurantDB.Restaurant.RestaurantReviews' does no
           <Property Name="rating" Type="Int32" Nullable="false" />
           <Property Name="body" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Restaurants" Relationship="Self.RestaurantReviews" FromRole="Reviews" ToRole="Restaurants" />
+          <Property Name="restaurant_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Restaurant_Cascade" FromRole="Reviews" ToRole="Restaurants" />
         </EntityType>
-        <Association Name="RestaurantReviews">
-          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="*" />
+        <Association Name="FK_Restaurant_Cascade">
+          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="restaurant_id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RestaurantEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
           <EntitySet Name="Reviews" EntityType="Self.Review" />
-          <AssociationSet Name="RestaurantReviews" Association="Self.RestaurantReviews">
+          <AssociationSet Name="FK_Restaurant_Cascade" Association="Self.FK_Restaurant_Cascade">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
@@ -138,17 +120,10 @@ warning 6002: The table/view 'RestaurantDB.Restaurant.RestaurantReviews' does no
                 <ScalarProperty Name="rating" ColumnName="rating" />
                 <ScalarProperty Name="body" ColumnName="body" />
                 <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="restaurant_id" ColumnName="restaurant_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="RestaurantReviews" TypeName="RestaurantModel.RestaurantReviews" StoreEntitySet="RestaurantReviews">
-            <EndProperty Name="Restaurants">
-              <ScalarProperty Name="id" ColumnName="restaurant_id" />
-            </EndProperty>
-            <EndProperty Name="Reviews">
-              <ScalarProperty Name="id" ColumnName="review_id" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

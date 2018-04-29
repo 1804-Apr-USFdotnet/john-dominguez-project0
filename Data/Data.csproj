@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BFEAA3F5-D092-4D1A-84DA-8AF08F10BBB1}</ProjectGuid>
+    <ProjectGuid>{83F52D0D-DFFE-4946-84EF-2F54DD153A9C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Data</RootNamespace>
@@ -49,11 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RestaurantCrud.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Restaurant.cs">
       <DependentUpon>RestaurantModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RestaurantCrud.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestaurantModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -74,14 +74,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
     <EntityDeploy Include="RestaurantModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RestaurantModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="packages.config" />
     <None Include="RestaurantModel.edmx.diagram">
       <DependentUpon>RestaurantModel.edmx</DependentUpon>
     </None>
@@ -89,8 +87,8 @@
   <ItemGroup>
     <Content Include="RestaurantModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RestaurantModel.Context.cs</LastGenOutput>
       <DependentUpon>RestaurantModel.edmx</DependentUpon>
+      <LastGenOutput>RestaurantModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="RestaurantModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -14,18 +14,12 @@ namespace Data
     
     public partial class Review
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Review()
-        {
-            this.Restaurants = new HashSet<Restaurant>();
-        }
-    
         public int id { get; set; }
         public int rating { get; set; }
         public string body { get; set; }
         public string username { get; set; }
+        public int restaurant_id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Restaurant> Restaurants { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
     }
 }

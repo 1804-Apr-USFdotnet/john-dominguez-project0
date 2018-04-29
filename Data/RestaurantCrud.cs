@@ -8,9 +8,35 @@ namespace Data
     {
         RestaurantEntities db = new RestaurantEntities();
 
-        public IEnumerable<Restaurant> ShowAllRestaurants()
+        //Restaurants
+
+        public IEnumerable<Restaurant> GetAllRestaurants()
         {
             return db.Restaurants.ToList();
         }
+
+        public Restaurant GetRestaurant(int id)
+        {
+            return db.Restaurants.Find(id);
+        }
+
+        public void AddRestaurant(Restaurant restaurant)
+        {
+            db.Restaurants.Add(restaurant);
+            db.SaveChanges();
+        }
+
+        public void RemoveRestaurant(Restaurant restaurant)
+        {
+            db.Restaurants.Remove(restaurant);
+            db.SaveChanges();
+        }
+
+
+        //Reviews
+
+
+
+        //RestaurantReviews
     }
 }
