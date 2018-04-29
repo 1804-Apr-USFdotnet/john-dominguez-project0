@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using library;
-using Library;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using Data;
 
 namespace RestaurantApp
 {
@@ -9,33 +9,34 @@ namespace RestaurantApp
     {
         static void Main(string[] args)
         {
-            Serializer.Serialize(Restaurant.MakeRestaurants(), "test.txt");
-            var restaurants = Serializer.Deserialize<Restaurant>("test.txt");
-            Console.WriteLine("All Restaurants");
-            foreach (var r in restaurants)
-            {
-                Console.WriteLine(r.ToString());
-            }
+            RestaurantCrud crud = new RestaurantCrud();
 
-            Console.WriteLine("\nTop 3 Restaurants");
-            int i = 1;
-            foreach (var r in Restaurant.TopThree(restaurants))
+            try
             {
-                Console.WriteLine($"{i}: {r.ToString()}");
-                i++;
+                //Show all Restaurant
+                var restaurants = crud.ShowAllRestaurants();
+                foreach (var restaurant in restaurants)
+                {
+                    Console.WriteLine($"{restaurant.name}");
+                }
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                            validationError.PropertyName,
+                            validationError.ErrorMessage);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
             Console.Read();
         }
     }
 }
-
-/*
- Project 0
-   Restaurant - Console
-   Restaurant 
-   -name
-   - +2 info : loc, desc
-   Review
-   -numerical rating
-   -2 info: reviewer name, date
- */

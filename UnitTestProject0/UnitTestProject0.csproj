@@ -60,9 +60,9 @@
       <Project>{f58ad6db-249a-4843-8fd6-c4cecd3c1f3c}</Project>
       <Name>Library</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RestaurantApp\RestaurantApp.csproj">
+    <ProjectReference Include="..\RestaurantApp\Client.csproj">
       <Project>{e7599565-2863-41c1-bcdc-fa908d25e073}</Project>
-      <Name>RestaurantApp</Name>
+      <Name>Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
