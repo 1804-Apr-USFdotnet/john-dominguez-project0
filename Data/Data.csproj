@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RestaurantPartial.cs" />
+    <Compile Include="ReviewPartial.cs" />
     <Compile Include="Restaurant.cs">
       <DependentUpon>RestaurantModel.tt</DependentUpon>
     </Compile>

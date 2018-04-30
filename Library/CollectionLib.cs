@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace library
+namespace Library
 {
     public class CollectionLib
     {
@@ -24,9 +24,9 @@ namespace library
             return (List<T>) list.OrderByDescending(i => i).ToList();
         }
 
-        public static int RandomRating(int max)
+        public static int RandomNumber( int max, int offset = 1)
         {
-            return (int)(rnd.Next(1, max + 1));
+            return (int)(rnd.Next(offset, max + 1));
         }
     }
 }
