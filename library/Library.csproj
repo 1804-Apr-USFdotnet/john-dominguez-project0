@@ -49,6 +49,7 @@
     <Compile Include="CodeChallenge.cs" />
     <Compile Include="CollectionLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestaurantLibrary.cs" />
     <Compile Include="Serializer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +59,12 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{83F52D0D-DFFE-4946-84EF-2F54DD153A9C}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

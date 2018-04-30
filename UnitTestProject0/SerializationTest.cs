@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestaurantApp;
+using Data;
 
 namespace UnitTestProject0
 {
     [TestClass]
     public class SerializationTest
     {
-        [TestMethod]
+        private Restaurant restaurant;
+       [TestMethod]
         public void Serialize()
         {
-            string expected = Serializer.Serialize(new Restaurant("Johns", "123 st"));
+            restaurant = new Restaurant();
+            restaurant.Rating = 0;
+            restaurant.name = "Johns";
+            restaurant.address = "123 st";
+            restaurant.email = "234@aol.com";
+            restaurant.phone = "123";
+
+            string expected = Serializer.Serialize(restaurant);
             string actual = @"{""Name"":""Johns"",""Location"":""123 st"",""Rating"":0.0,""Reviews"":[]}";
             Console.WriteLine(expected);
             Console.WriteLine(actual);
@@ -23,9 +31,12 @@ namespace UnitTestProject0
         [TestMethod]
         public void Deserialize()
         {
-            Serializer.Serialize(Restaurant.MakeRestaurants(), "test.txt");
+            Serializer.Serialize(restaurant, "test.txt");
             List<Restaurant> expected = Serializer.Deserialize<Restaurant>("test.txt");
-            List<Restaurant> actual = Restaurant.MakeRestaurants();
+            List<Restaurant> actual = new List<Restaurant>()
+            {
+                restaurant
+            };
             Assert.IsTrue(expected.Equals(actual));
         }
     }
