@@ -1,5 +1,6 @@
 ﻿using library;
 using System;
+using System.IO;
 
 namespace RestaurantApp
 {
@@ -16,6 +17,7 @@ namespace RestaurantApp
 
         private void Quit()
         {
+            Console.WriteLine("Sayonara!");
             _isRunning = false;
         }
        
@@ -27,7 +29,7 @@ namespace RestaurantApp
                    $"P) Print Restaurant\n" +
                    $"R) Print Reviews\n" +
                    $"S) Search Restaurants\n" +
-                   $"Q) Quit";
+                   $"X) Quit";
         }
 
         private void CallCommands(string input)
@@ -49,7 +51,10 @@ namespace RestaurantApp
                 case "S":
                     RestaurantLibrary.SearchRestaurant();
                     break;
-                case "Q":
+                case "Z":
+                    RestaurantLibrary.SerializeDB();
+                    break;
+                case "X":
                     Quit();
                     break;
                 default:
@@ -72,7 +77,7 @@ namespace RestaurantApp
                     CallCommands(input);
 
                 }
-                catch (Exception e)
+                catch (IOException e)
                 {
                     Console.WriteLine(e.Message);
                 }

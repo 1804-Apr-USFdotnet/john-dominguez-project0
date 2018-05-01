@@ -9,7 +9,11 @@ namespace Library
     {
         public static void Serialize(Object type, string filename="data.txt")
         {
-            JsonSerializer serializer = new JsonSerializer {NullValueHandling = NullValueHandling.Ignore};
+            JsonSerializer serializer = new JsonSerializer
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            };
 
             using (StreamWriter streamWriter = new StreamWriter(filename))
             using (JsonWriter writer = new JsonTextWriter(streamWriter))

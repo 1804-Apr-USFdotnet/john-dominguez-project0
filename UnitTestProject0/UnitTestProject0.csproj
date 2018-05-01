@@ -51,24 +51,23 @@
     <Compile Include="PalindromeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializationTest.cs" />
+    <Compile Include="RestaurantTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="JSON\restaurant_test.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{83F52D0D-DFFE-4946-84EF-2F54DD153A9C}</Project>
+      <Project>{83f52d0d-dffe-4946-84ef-2f54dd153a9c}</Project>
       <Name>Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\library\Library.csproj">
       <Project>{f58ad6db-249a-4843-8fd6-c4cecd3c1f3c}</Project>
       <Name>Library</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RestaurantApp\Client.csproj">
-      <Project>{e7599565-2863-41c1-bcdc-fa908d25e073}</Project>
-      <Name>Client</Name>
-    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

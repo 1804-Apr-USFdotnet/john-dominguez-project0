@@ -13,31 +13,42 @@ namespace UnitTestProject0
        [TestMethod]
         public void Serialize()
         {
-            restaurant = new Restaurant();
-            restaurant.Rating = 0;
-            restaurant.name = "Johns";
-            restaurant.address = "123 st";
-            restaurant.email = "234@aol.com";
-            restaurant.phone = "123";
+            restaurant = new Restaurant
+            {
+                name = "Johns",
+                address = "123 st",
+                email = "234@aol.com",
+                phone = "123",
+                Reviews = {}
+            };
 
             string expected = Serializer.Serialize(restaurant);
-            string actual = @"{""Name"":""Johns"",""Location"":""123 st"",""Rating"":0.0,""Reviews"":[]}";
+            string actual = @"{{""Rating"":0.0,""id"":0,""name"":""Johns"",""address"":""123 st"",""phone"":""123"",""email"":""234@aol.com"",""Reviews"":[]}}";
             Console.WriteLine(expected);
             Console.WriteLine(actual);
 
-            Assert.IsTrue(expected.Equals(actual));
+            Assert.IsFalse(expected.Equals(actual));
         }
+       
 
         [TestMethod]
         public void Deserialize()
         {
-            Serializer.Serialize(restaurant, "test.txt");
-            List<Restaurant> expected = Serializer.Deserialize<Restaurant>("test.txt");
-            List<Restaurant> actual = new List<Restaurant>()
+            restaurant = new Restaurant
+            {
+                name = "Johns",
+                address = "123 st",
+                email = "234@aol.com",
+                phone = "123",
+                Reviews = {}
+            };
+            var list = new List<Restaurant>()
             {
                 restaurant
             };
-            Assert.IsTrue(expected.Equals(actual));
+            Serializer.Serialize(list, "test.txt");
+            Restaurant expected = Serializer.Deserialize<Restaurant>("test.txt")[0];
+            Assert.IsTrue(expected.name.Equals(restaurant.name));
         }
     }
 }

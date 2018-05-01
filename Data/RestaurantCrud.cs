@@ -31,12 +31,5 @@ namespace Data
             db.Restaurants.Remove(restaurant);
             db.SaveChanges();
         }
-
-
-        //Reviews
-
-
-
-        //RestaurantReviews
     }
 }

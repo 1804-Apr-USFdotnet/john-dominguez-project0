@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Data
 {
     public partial class Restaurant
     {
-        public double Rating { get; set; }
+        public static object Library { get; private set; }
 
         public double AvgRating()
         {
             double sum = this.Reviews.ToList().Sum(x => x.rating);
             return sum / this.Reviews.Count;
+        }
+
+        public List<Review> GetReviews()
+        {
+            return this.Reviews.ToList();
         }
 
         public static List<Restaurant> SearchRestaurants(List<Restaurant> restaurants, string keyword)

@@ -45,7 +45,7 @@ namespace library
         public static void PrintRestaurant()
         {
             Console.Write("Enter Restaurant ID: ");
-            int id = int.Parse(Console.ReadLine());
+            int id = Int32.Parse(Console.ReadLine());
 
             //show restaurant
             var restaurant = crud.GetRestaurant(id);
@@ -83,7 +83,7 @@ namespace library
         public static void PrintReviews()
         {
             Console.Write("Enter Restaurant ID: ");
-            int id = int.Parse(Console.ReadLine());
+            int id = Int32.Parse(Console.ReadLine());
             Restaurant restaurant = crud.GetRestaurant(id);
 
             foreach (var review in restaurant.Reviews)
@@ -109,6 +109,17 @@ namespace library
                     PrintRestaurantShort(restaurant);
                 }
             }
+        }
+
+        public static void SerializeDB()
+        {
+            Serializer.Serialize(crud.GetAllRestaurants(), "database.json");
+            Console.WriteLine($"Serialization completed! Saved to database.json");
+        }
+
+        public static void DeserializeJSON()
+        {
+//            Serializer.Deserialize<Restaurant>()
         }
     }
 
