@@ -19,10 +19,14 @@ namespace library
             return s;
         }
 
-        public static List<Restaurant> TopThreeRestaurants()
+        public static List<Restaurant> TopThreeRestaurants(List<Restaurant> restaurants)
         {
-           var restaurants = crud.GetAllRestaurants().ToList();
            return Restaurant.SortDescending(restaurants).Take(3).ToList();
+        }
+
+        public static Restaurant LowestRatedRestaurant(List<Restaurant> restaurants)
+        {
+            return Restaurant.SortAscending(restaurants).Take(1).ToList()[0];
         }
 
 
@@ -36,7 +40,7 @@ namespace library
         public static void PrintTopThreeRestaurants()
         {
             Console.WriteLine("Top Three Restaurants:");
-            var topThree = TopThreeRestaurants();
+            var topThree = TopThreeRestaurants(crud.GetAllRestaurants().ToList());
             Console.WriteLine(RestaurantToString(topThree));
         }
 
