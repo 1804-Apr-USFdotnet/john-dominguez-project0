@@ -12,57 +12,51 @@ namespace library
     {
         private static RestaurantCrud crud = new RestaurantCrud();
 
+        public static string RestaurantToString(List<Restaurant> restaurants)
+        {
+            string s = $"{string.Join("\n", restaurants)}";
+
+            return s;
+        }
+
         public static List<Restaurant> TopThreeRestaurants()
         {
            var restaurants = crud.GetAllRestaurants().ToList();
            return Restaurant.SortDescending(restaurants).Take(3).ToList();
         }
 
-        public static string RestaurantSimpleString(Restaurant restaurant)
+
+        //Print Methods
+
+        public void PrintRestaurant(Restaurant restaurant)
         {
-            return $"{restaurant.id} - {restaurant.name}, {restaurant.AvgRating()} rating, {restaurant.Reviews.Count} Reviews";
+            Console.WriteLine(restaurant.ToString());
         }
-
-        public static string RestaurantSimpleString(List<Restaurant> restaurants)
-        {
-
-            return $"{restaurant.id} - {restaurant.name}, {restaurant.AvgRating()} rating, {restaurant.Reviews.Count} Reviews";
-        }
-
+        
         public static void PrintTopThreeRestaurants()
         {
             Console.WriteLine("Top Three Restaurants:");
             var topThree = TopThreeRestaurants();
-            foreach (var r in topThree)
-            {
-                GetRestaurantShortFull(r);
-            }
+            Console.WriteLine(RestaurantToString(topThree));
         }
 
-        public static void PrintRestaurantsDESC()
+        public static void PrintRestaurantsDesc()
         {
             var restaurants = crud.GetAllRestaurants();
 
-            foreach (var r in Restaurant.SortDescending(restaurants.ToList()))
-            {
-                GetRestaurantShortFull(r);
-            }
+            Console.WriteLine(RestaurantToString(Restaurant.SortDescending(restaurants.ToList())));
         }
 
-        public static void PrintRestaurantsASC()
+        public static void PrintRestaurantsAsc()
         {
             var restaurants = crud.GetAllRestaurants();
-
-            foreach (var r in Restaurant.SortAscending(restaurants.ToList()))
-            {
-                GetRestaurantShortFull(r);
-            }
+            Console.WriteLine(RestaurantToString(Restaurant.SortAscending(restaurants.ToList())));
         }
 
         public static void PrintRestaurant()
         {
             Console.Write("Enter Restaurant ID: ");
-            int id = Int32.Parse(Console.ReadLine());
+            int id = Int32.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
 
             //show restaurant
             var restaurant = crud.GetRestaurant(id);
@@ -70,24 +64,6 @@ namespace library
             foreach (var r in restaurant.Reviews)
             {
                 Console.WriteLine($"\t{r.username} rated {r.rating}");
-            }
-        }
-
-        public static void GetRestaurantStringFull(Restaurant restaurant)
-        {
-            //show restaurant
-            GetRestaurantShortFull(restaurant);
-            foreach (var r in restaurant.Reviews)
-            {
-                Console.WriteLine($"\t{r.username} rated {r.rating}");
-            }
-        }
-
-        public static void PrintRestaurants()
-        {
-            foreach (var r in crud.GetAllRestaurants())
-            {
-                Console.WriteLine($"{r.name} [{r.AvgRating()}]");
             }
         }
 
@@ -115,10 +91,7 @@ namespace library
             else
             {
                 Console.WriteLine($"Found {restaurants.Count} Matches:");
-                foreach (var restaurant in restaurants)
-                {
-                    PrintRestaurantShort(restaurant);
-                }
+                Console.WriteLine(RestaurantToString(restaurants));
             }
         }
 
@@ -131,10 +104,6 @@ namespace library
         public static void DeserializeJSON()
         {
             List<Restaurant> restaurants = Library.Serializer.DeserializeRestaurantJSON();
-            string expected = "Wisozk-Funk";
-            string actual = restaurants[0].name;
         }
     }
-
-    
 }

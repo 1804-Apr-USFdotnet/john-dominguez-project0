@@ -9,9 +9,9 @@ namespace Data
     public partial class Review
     {
 
-        public string ToString()
+        public override string ToString()
         {
-            return $"Rated {rating} by {username}";
+            return $"[id:{id}] Rated {rating:0.#} by {username}";
         }
     }
 }

@@ -6,17 +6,19 @@ namespace RestaurantApp
 {
     public class RestaurantApp
     {
-        
+        private static NLog.Logger logger;
         private bool _isRunning;
 
         public RestaurantApp()
         {
             _isRunning = true;
+            logger = NLog.LogManager.GetCurrentClassLogger();
         }
-       
+
 
         private void Quit()
         {
+            NLog.LogManager.Shutdown();
             Console.WriteLine("Sayonara!");
             _isRunning = false;
         }
@@ -38,10 +40,10 @@ namespace RestaurantApp
             switch (input)
             {
                 case "L":
-                    RestaurantLibrary.PrintRestaurantsDESC();
+                    RestaurantLibrary.PrintRestaurantsDesc();
                     break;
                 case "M":
-                    RestaurantLibrary.PrintRestaurantsASC();
+                    RestaurantLibrary.PrintRestaurantsAsc();
                     break;
                 case "P":
                     RestaurantLibrary.PrintRestaurant();
@@ -81,11 +83,12 @@ namespace RestaurantApp
                     string input = Console.ReadLine().ToUpper();
                     Console.WriteLine();
                     CallCommands(input);
-
+                    logger.Info(input);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
+                    logger.Error(e);
                 }
             }
 

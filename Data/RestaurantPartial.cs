@@ -34,15 +34,15 @@ namespace Data
             return (List<Restaurant>)list.OrderByDescending(i => i.AvgRating()).ToList();
         }
 
-        public string ToString()
+        public override string ToString()
         {
-            return $"{id}:{name} | {AvgRating()} stars";
+            return $"{id}:{name} | {AvgRating()} Stars | {Reviews.Count} Total Reviews";
         }
 
         public string ToStringExtended()
         {
-            string s = "";
-
+            string s = $"{id}:{name} | {AvgRating()} Stars | {Reviews.Count} Total Reviews";
+            s += "\n\t" + string.Join("\n\t", Reviews);
             return s;
         }
     }
