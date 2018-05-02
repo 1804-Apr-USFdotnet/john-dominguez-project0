@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using Data;
 
 namespace Library
 {
@@ -31,6 +32,12 @@ namespace Library
         {
             var jsonFile = File.ReadAllText(filename);
             return JsonConvert.DeserializeObject<List<T>>(jsonFile);
+        }
+
+        public static List<Restaurant> DeserializeRestaurantJSON()
+        {
+            var jsonText = File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Library\JSON\restaurant_db.json")));
+            return JsonConvert.DeserializeObject<List<Restaurant>>(jsonText);
         }
     }
 }

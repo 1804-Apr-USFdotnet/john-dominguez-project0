@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public partial class ReviewPartial
+    public partial class Review
     {
+
+        public string ToString()
+        {
+            return $"Rated {rating} by {username}";
+        }
     }
 }

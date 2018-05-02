@@ -29,6 +29,7 @@ namespace RestaurantApp
                    $"P) Print Restaurant\n" +
                    $"R) Print Reviews\n" +
                    $"S) Search Restaurants\n" +
+                   $"T) Top Three Restaurants\n" +
                    $"X) Quit";
         }
 
@@ -51,6 +52,9 @@ namespace RestaurantApp
                 case "S":
                     RestaurantLibrary.SearchRestaurant();
                     break;
+                case "T":
+                    RestaurantLibrary.PrintTopThreeRestaurants();
+                    break;
                 case "Z":
                     RestaurantLibrary.SerializeDB();
                     break;
@@ -65,6 +69,8 @@ namespace RestaurantApp
 
         public void Run()
         {
+            RestaurantLibrary.DeserializeJSON();
+
             Console.WriteLine($"Welcome to BadReviews!");
             Console.WriteLine(Menu());
             while (_isRunning)
@@ -77,7 +83,7 @@ namespace RestaurantApp
                     CallCommands(input);
 
                 }
-                catch (IOException e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }

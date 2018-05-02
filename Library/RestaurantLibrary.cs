@@ -12,13 +12,30 @@ namespace library
     {
         private static RestaurantCrud crud = new RestaurantCrud();
 
-        public static void TopThreeRestaurants()
+        public static List<Restaurant> TopThreeRestaurants()
+        {
+           var restaurants = crud.GetAllRestaurants().ToList();
+           return Restaurant.SortDescending(restaurants).Take(3).ToList();
+        }
+
+        public static string RestaurantSimpleString(Restaurant restaurant)
+        {
+            return $"{restaurant.id} - {restaurant.name}, {restaurant.AvgRating()} rating, {restaurant.Reviews.Count} Reviews";
+        }
+
+        public static string RestaurantSimpleString(List<Restaurant> restaurants)
+        {
+
+            return $"{restaurant.id} - {restaurant.name}, {restaurant.AvgRating()} rating, {restaurant.Reviews.Count} Reviews";
+        }
+
+        public static void PrintTopThreeRestaurants()
         {
             Console.WriteLine("Top Three Restaurants:");
-            var topThree = crud.GetAllRestaurants().Take(3).ToList();
-            foreach (var r in CollectionLib.SortDescending<Restaurant>(topThree))
+            var topThree = TopThreeRestaurants();
+            foreach (var r in topThree)
             {
-                PrintRestaurantShort(r);
+                GetRestaurantShortFull(r);
             }
         }
 
@@ -28,7 +45,7 @@ namespace library
 
             foreach (var r in Restaurant.SortDescending(restaurants.ToList()))
             {
-                PrintRestaurantShort(r);
+                GetRestaurantShortFull(r);
             }
         }
 
@@ -38,7 +55,7 @@ namespace library
 
             foreach (var r in Restaurant.SortAscending(restaurants.ToList()))
             {
-                PrintRestaurantShort(r);
+                GetRestaurantShortFull(r);
             }
         }
 
@@ -56,20 +73,14 @@ namespace library
             }
         }
 
-        public static void PrintRestaurantFull(Restaurant restaurant)
+        public static void GetRestaurantStringFull(Restaurant restaurant)
         {
             //show restaurant
-            PrintRestaurantShort(restaurant);
+            GetRestaurantShortFull(restaurant);
             foreach (var r in restaurant.Reviews)
             {
                 Console.WriteLine($"\t{r.username} rated {r.rating}");
             }
-        }
-
-        public static void PrintRestaurantShort(Restaurant restaurant)
-        {
-            //show restaurant
-            Console.WriteLine($"{restaurant.id} - {restaurant.name}, {restaurant.AvgRating()} rating, {restaurant.Reviews.Count} Reviews");
         }
 
         public static void PrintRestaurants()
@@ -119,7 +130,9 @@ namespace library
 
         public static void DeserializeJSON()
         {
-//            Serializer.Deserialize<Restaurant>()
+            List<Restaurant> restaurants = Library.Serializer.DeserializeRestaurantJSON();
+            string expected = "Wisozk-Funk";
+            string actual = restaurants[0].name;
         }
     }
 

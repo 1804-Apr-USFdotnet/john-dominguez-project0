@@ -33,5 +33,17 @@ namespace Data
         {
             return (List<Restaurant>)list.OrderByDescending(i => i.AvgRating()).ToList();
         }
+
+        public string ToString()
+        {
+            return $"{id}:{name} | {AvgRating()} stars";
+        }
+
+        public string ToStringExtended()
+        {
+            string s = "";
+
+            return s;
+        }
     }
 }
